@@ -13,7 +13,8 @@
 		$exPage = $('#accueil'),
 		sExPage = 'Accueil',
 		dataLocal,
-		memory;
+		memory,
+		oListeSerie;
 
 	// --- methods
 	var getURL_param = function(){
@@ -37,17 +38,23 @@
 
 	var checkPage = function(e){
 		e.preventDefault();
-		sPage = e.currentTarget.innerText;
+		console.log(e);
+		sPage = (e.currentTarget.offsetParent.localName == 'nav') ? e.currentTarget.innerHTML : e.currentTarget.className;
 		if(sExPage != sPage){
 			if(sPage == 'Accueil'){
 				$page = $('#accueil');
-				$page.css({'display':'inline-block'});
+				$exPage.css({'width':'50%'});
+				$('#content').css({width:'200%'});
+				$page.css({'display':'inline-block','width':'49%'});
 				$('#content').css({marginLeft:'-100%'});
-					$('#content').animate({marginLeft:0},400,function(){
-						$exPage.hide();
-						$exPage = $page;
-						sExPage = sPage;
-					});
+
+				$('#content').animate({marginLeft:0},400,function(){
+					$page.css({'width':'100%'});
+					$('#content').css({width:'100%'});
+					$exPage.hide();
+					$exPage = $page;
+					sExPage = sPage;
+				});
 				
 			}
 			else{
@@ -62,25 +69,29 @@
 						$('#content').append($page);
 						liste();
 					break;
-					case 'Agenda':
+					case 'Planning':
 						$page = $('#planning').remove();
 						$('#content').append($page);
 						agenda();
 					break;
-					case '':
-						$page = $('#profil').remove();
+					case 'serie':
+						$page = $('#fiche').remove();
 						$('#content').append($page);
-						favoris();
+						fiche(e.currentTarget.title);
 					break;
 					default:
 					break;
 				}
-				$page.css({'display':'inline-block'});
-				$('#content').animate({marginLeft:'-100%'},400,function(){
+				console.log($page);
+				$exPage.css({'width':'50%'});
+				$page.css({'display':'inline-block','width':'49%'});
+				$('#content').css({width:'200%'});
+				$('#content').animate({marginLeft:'-100%'},200,function(){
 					$exPage.hide();
 					sExPage = sPage;
 					$exPage = $page;
-					$('#content').css({marginLeft:0});
+					$page.css({'width':'100%'});
+					$('#content').css({marginLeft:0,width:'100%'});
 				});
 			}
 		}
@@ -125,11 +136,9 @@
 		return false;
 	} // inList
 
-	var fiche = function(e){
-		//var title = $('h2').text();
-		var params = getURL_param();
-		var title = params['title'],
-			info,
+	var fiche = function(title){
+		console.log(title);
+		var info,
 			saisons;
 		$.ajax({
 			url: 'http://api.betaseries.com/shows/display/'+title+'.json?key='+skey,
@@ -168,41 +177,50 @@
 	}; //fiche;
 
 	var liste = function(){
-		var params = getURL_param();
-		var title = params['title'];
-		$("#keyWord").val(title);
+		var params = getURL_param(),
+			title = params['title'],
+			$zone = $('#result'),
+			i,
+			jInfos;
+
+		//$("#keyWord").val(title);
+
 		var url = (title == null)? 'display/all.json?key='+skey : 'search.json?key='+skey+'&title='+title;
-		$.ajax({
-			url:'http://api.betaseries.com/shows/'+url,
-			dataType: 'jsonp',
-			type:'POST',
-			cache:'true',
-			jsonpCallback:'mySeries',
-			success: function(data){
-				var jInfos = data.root.shows,
-					$zone = $('#result'),
-					i = 0;
+		//if($('#result').find('li').length == 0){
+			$.ajax({
+				url:'http://api.betaseries.com/shows/'+url,
+				dataType: 'jsonp',
+				type:'POST',
+				cache:'true',
+				jsonpCallback:'mySeries',
+				success: function(data){
+					jInfos = data.root.shows;
+					var oListeSerie = jInfos,
+						$zone = $('#result');
+					i=0;
 					$zone.find('li').remove().on('click','a',checkPage);
-				listerSeries(i,jInfos,$zone);
-				$('.icon-right').on('click',function(){
-					$zone.fadeOut('fast',function(){
-						$(this).find('li').remove();
-						i+=10;
-						listerSeries(i,jInfos,$zone);
-					});
+					listerSeries(i,jInfos,$zone);
+				}
+			});
+			$('#page').on('click','.icon-right',function(){
+				$zone.fadeOut('fast',function(){
+					$(this).find('li').remove();
+					i+=10;
+					listerSeries(i,jInfos,$zone);
 				});
-				$('.icon-left').on('click',function(){
-					$zone.fadeOut('fast',function(){
-						$(this).find('li').remove();
-						i-=10;
-						listerSeries(i,jInfos,$zone);
-					});
+			});
+			$('#page').on('click','.icon-left',function(){
+				$zone.fadeOut('fast',function(){
+					$(this).find('li').remove();
+					i-=10;
+					listerSeries(i,jInfos,$zone);
 				});
-			}
-		});
+			});
+		//}
 	}; //liste
 
 	var listerSeries = function(page,infos,zone){
+		console.log(infos);
 		var max = (page+10 > infos.length)?infos.length:page+10,
 			oFav;
 		
@@ -324,8 +342,10 @@
 			sUrl;
 			$zone.find('*').remove();
 		for(var i in infos){
-			$zone.append('<li data-url="'+infos[i].url+'"><a href="fiche.php?title='+infos[i].url+'">'+infos[i].title+'</a><a href="#" class="delete">X</a></li>');
+			$zone.append('<li data-url="'+infos[i].url+'"><a class="serie" href="fiche.php?title='+infos[i].url+'" title="'+infos[i].url+'">'+infos[i].title+'</a><a href="#" class="delete">X</a></li>');
 		}
+		$('.serie').on('click',checkPage);
+
 		$zone.on('click','.delete',function(){
 			$serie = $(this).parent();
 			sUrl = $serie.attr('data-url');
@@ -379,7 +399,6 @@
 		readLocal();
 		$(".recherche").on('click',function(e){
 			e.preventDefault();
-			console.log('hh');
 			$("#searchBar").slideDown().on('submit',recherche);
 		});
 		$('nav').on('click','a',checkPage);

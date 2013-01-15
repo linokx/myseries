@@ -135,11 +135,15 @@ body {
   padding: 3px 10px;
   text-shadow: 0 -1px 1px #254f7a;
 }
-#series li a,
-#saisons li a,
-#favoris li a,
-#result li a {
+#series li a:first-child,
+#saisons li a:first-child,
+#favoris li a:first-child,
+#result li a:first-child {
   color: #333;
+  width: 87%;
+  overflow-x: hidden;
+  white-space: nowrap;
+  display: inline-block;
 }
 #series li + li,
 #saisons li + li,
@@ -153,6 +157,7 @@ body {
   padding: 8px;
   position: absolute;
   right: 0;
+  text-align: right;
   top: 4px;
 }
 header {
@@ -223,13 +228,13 @@ nav [class*=" icon-"]:before {
   width: 90%;
 }
 #content {
-  width: 400%;
+  width: 220%;
 }
 #content > div {
   display: inline-block;
   max-width: 480px;
   vertical-align: top;
-  width: 100%;
+  width: 50%;
 }
 #content > div + div {
   display: none;
