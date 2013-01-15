@@ -1,0 +1,366 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'fontello';
+  src: url("../font/fontello.eot");
+  src: url("../font/fontello.eot?#iefix") format('embedded-opentype'), url("../font/fontello.woff") format('woff'), url("../font/fontello.ttf") format('truetype'), url("../font/fontello.svg#fontello") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"]:before,
+[class*=" icon-"]:before,
+[class^="icon-"]:after,
+[class*=" icon-"]:after {
+  font-size: 30px;
+  font-family: 'fontello';
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: none;
+  width: 1em;
+  margin-right: 0.2em;
+  text-align: center;
+  opacity: 0.8;
+  margin-left: 0.2em;
+  /* you can be more comfortable with increased icons size */
+
+  /* font-size: 120%; */
+
+  /* Uncomment for 3D effect */
+
+  text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
+}
+.icon-home:before {
+  content: '\e800';
+}
+/* '' */
+.icon-star:before {
+  content: '\2605';
+}
+/* '★' */
+.icon-list:before {
+  content: '\2630';
+}
+/* '☰' */
+.icon-ok:before {
+  content: '\2713';
+}
+/* '✓' */
+.icon-reply:before {
+  content: '\e712';
+}
+/* '' */
+.icon-left:before {
+  content: '\e75d';
+}
+/* '' */
+.icon-right:before {
+  content: '\e75e';
+}
+/* '' */
+.icon-calendar:before {
+  content: '📅';
+}
+/* '\1f4c5' */
+.icon-search:before {
+  content: '🔍';
+}
+/* '\1f50d' */
+html {
+  background: url('../img/white.png');
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+body {
+  margin: auto;
+  max-width: 480px;
+  overflow-x: hidden;
+  padding-bottom: 60px;
+  -position: relative;
+  width: 100%;
+}
+#series,
+#saisons,
+#favoris {
+  background: #FFF;
+  -border: 1px #999 solid;
+  border-radius: 5px;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.3) inset;
+  display: block;
+  margin: 20px auto;
+  position: relative;
+  width: 94%;
+}
+#series li,
+#saisons li,
+#favoris li {
+  border: 1px solid #cccccc;
+  background: #eeeeee;
+  font-weight: bold;
+  color: #444444;
+  text-shadow: 0 1px 1px #f6f6f6;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fdfdfd), to(#eeeeee));
+  background-image: -webkit-linear-gradient(top, #fdfdfd, #eeeeee);
+  background-image: -moz-linear-gradient(top, #fdfdfd, #eeeeee);
+  background-image: -ms-linear-gradient(top, #fdfdfd, #eeeeee);
+  background-image: -o-linear-gradient(top, #fdfdfd, #eeeeee);
+  background-image: linear-gradient(top, #fdfdfd, #eeeeee);
+  padding-bottom: 5px;
+  position: relative;
+}
+#series li h3,
+#saisons li h3,
+#favoris li h3 {
+  background: #5e87b0;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#64b9e7), to(#3989b5));
+  background-image: -webkit-linear-gradient(top, #64b9e7, #3989b5);
+  background-image: -moz-linear-gradient(top, #64b9e7, #3989b5);
+  background-image: -ms-linear-gradient(top, #64b9e7, #3989b5);
+  background-image: -o-linear-gradient(top, #64b9e7, #3989b5);
+  background-image: linear-gradient(top, #64b9e7, #3989b5);
+  border: 1px solid #456f9a;
+  color: white;
+  font-weight: bold;
+  margin: 0;
+  padding: 3px 10px;
+  text-shadow: 0 -1px 1px #254f7a;
+}
+#series li a,
+#saisons li a,
+#favoris li a {
+  color: #333;
+}
+#series li + li,
+#saisons li + li,
+#favoris li + li {
+  border-top: none;
+}
+.delete,
+.add {
+  font-size: 10px;
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  top: 4px;
+}
+header {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#255984), to(#16344e));
+  background-image: -webkit-linear-gradient(top, #255984, #16344e);
+  background-image: -moz-linear-gradient(top, #255984, #16344e);
+  background-image: -ms-linear-gradient(top, #255984, #16344e);
+  background-image: -o-linear-gradient(top, #255984, #16344e);
+  background-image: linear-gradient(top, #255984, #16344e);
+  padding: 10px;
+  text-align: center;
+}
+header h1 {
+  display: inline-block;
+  margin: 0;
+}
+header h1 a {
+  color: #FFF;
+}
+header .recherche {
+  color: #FFF;
+}
+#searchBar {
+  display: none;
+}
+#searchBar fieldset {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px #777 solid;
+  padding: 5px;
+  position: relative;
+}
+#searchBar fieldset #keyWord {
+  line-height: 20px;
+  width: 82%;
+}
+#searchBar fieldset input[type=submit] {
+  background: #4096ee;
+  border: none;
+  line-height: 22px;
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  width: 16%;
+}
+nav {
+  background: -moz-linear-gradient(top, #111111 50%, #000000 50%);
+  background: -webkit-linear-gradient(top, #111111 50%, #000000 50%);
+  bottom: 0;
+  display: block;
+  height: 50px;
+  max-width: 480px;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  z-index: 2000;
+}
+nav a {
+  color: #FFF;
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  width: 25%;
+}
+nav [class^="icon-"]:before,
+nav [class*=" icon-"]:before {
+  display: block;
+  width: 90%;
+}
+h2 {
+  padding: 0 3%;
+  margin: 1em 0 0.5em;
+}
+/*------------------- FICHE -------------------*/
+#fiche li {
+  border: 1px #AAA solid;
+}
+#description {
+  background: #FFF;
+  border: 1px #AAA solid;
+  margin: 10px auto 0;
+  padding-bottom: 10px;
+  position: relative;
+  width: 94%;
+}
+#description img {
+  width: 100%;
+}
+#description div,
+#description p {
+  padding: 0 10px;
+}
+#liste li,
+#saisons li,
+#favoris li {
+  padding: 10px;
+}
+.episodes p {
+  display: none;
+  font-weight: normal;
+}
+.add_serie,
+.del_serie {
+  background: #45484d;
+  background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #45484d), color-stop(100%, #000000));
+  background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);
+  background: -o-linear-gradient(top, #45484d 0%, #000000 100%);
+  background: -ms-linear-gradient(top, #45484d 0%, #000000 100%);
+  background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
+  border: 1px #333 solid;
+  border-top: none;
+  color: #FFF;
+  display: block;
+  margin: 0 auto 10px;
+  padding: 10px 0;
+  position: relative;
+  text-align: center;
+  width: 94%;
+}
+/*------------------- AGENDA -------------------*/
+#agenda p {
+  margin: 10px 0;
+  padding: 2px 5px;
+  position: relative;
+}
+#agenda p a {
+  display: block;
+  padding-right: 30px;
+}
+#agenda p a:after {
+  content: '\e712';
+  font-size: 18px;
+  font-family: 'fontello';
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  width: 1em;
+  margin-right: 0.2em;
+  text-align: left;
+  opacity: 0.8;
+  margin-left: 0.2em;
+  position: absolute;
+  right: 5px;
+  top: 3px;
+}
+#page {
+  padding-bottom: 20px;
+  position: relative;
+  text-align: center;
+}
+#page i {
+  display: none;
+  position: absolute;
+}
+#page i.icon-left {
+  left: 20px;
+}
+#page i.icon-right {
+  right: 20px;
+}
+/*------------------- PLANNING -------------------*/
+#delete {
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.5);
+  display: none;
+  margin: 3%;
+  max-width: 480px;
+  padding: 2%;
+  position: fixed;
+  top: 15%;
+  width: 90%;
+  z-index: 5000;
+}
+#delete p {
+  margin: 5px 0 15px;
+}
+#delete button {
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3), 1px 1px 1px rgba(255, 255, 255, 0.4) inset, -1px -1px 1px rgba(0, 0, 0, 0.2) inset;
+  color: #FFF;
+  font-weight: bold;
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
+  padding: 3% 7%;
+}
+#delete .cancel {
+  background: #cedce7;
+  background: -moz-linear-gradient(top, #cedce7 0%, #596a72 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cedce7), color-stop(100%, #596a72));
+  background: -webkit-linear-gradient(top, #cedce7 0%, #596a72 100%);
+  background: -o-linear-gradient(top, #cedce7 0%, #596a72 100%);
+  background: -ms-linear-gradient(top, #cedce7 0%, #596a72 100%);
+  background: linear-gradient(to bottom, #cedce7 0%, #596a72 100%);
+  border: 1px #BBB solid;
+  position: absolute;
+  right: 2%;
+}
+#delete .confirm {
+  background: #ff3019;
+  background: -moz-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff3019), color-stop(100%, #cf0404));
+  background: -webkit-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  background: -o-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  background: -ms-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+  background: linear-gradient(to bottom, #ff3019 0%, #cf0404 100%);
+  border: 1px #FF0000 solid;
+}
+#cache {
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,29 @@
+<?php
+if(!isset($_GET['request'])) $_GET['request'] = "normal";
+if($_GET['request'] != 'ajax'){
+	
+include('include/meta.php'); ?>
+<body id="planning">
+	<?php
+	date_default_timezone_set('Europe/Brussels');
+ 	echo date('H:i:s d-m-Y',1343599200); ?><br/>
+	<?php echo date('H:i:s d-m-Y',time()); ?>
+	<?php include('include/header.php'); ?>
+	<div id="canvas">
+			<img src="http://www.betaseries.com/images/fonds/dexter.jpg" />
+			<p></p>
+	</div>
+	<section id="content">
+		<?php } ?>
+		<h2>Les plus populaires</h2>
+		<article class="test">
+			<img src=""/>
+			<p></p>
+				<a href="" class="fiche">Voir la fiche</a>
+				<a href="fiche.html" class="ajouter">Ajouter à la liste</a>
+		</article>
+	<?php if($_GET['request'] != 'ajax'){ ?>
+	</section>
+
+<?php include('include/footer.php'); ?>
+<?php } ?>
