@@ -68,6 +68,7 @@
 /* '\1f50d' */
 html {
   background: url('../img/white.png');
+  overflow-x: hidden;
 }
 ul {
   padding: 0;
@@ -87,7 +88,8 @@ body {
 }
 #series,
 #saisons,
-#favoris {
+#favoris,
+#result {
   background: #FFF;
   -border: 1px #999 solid;
   border-radius: 5px;
@@ -99,7 +101,8 @@ body {
 }
 #series li,
 #saisons li,
-#favoris li {
+#favoris li,
+#result li {
   border: 1px solid #cccccc;
   background: #eeeeee;
   font-weight: bold;
@@ -116,7 +119,8 @@ body {
 }
 #series li h3,
 #saisons li h3,
-#favoris li h3 {
+#favoris li h3,
+#result li h3 {
   background: #5e87b0;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#64b9e7), to(#3989b5));
   background-image: -webkit-linear-gradient(top, #64b9e7, #3989b5);
@@ -133,12 +137,14 @@ body {
 }
 #series li a,
 #saisons li a,
-#favoris li a {
+#favoris li a,
+#result li a {
   color: #333;
 }
 #series li + li,
 #saisons li + li,
-#favoris li + li {
+#favoris li + li,
+#result li + li {
   border-top: none;
 }
 .delete,
@@ -215,6 +221,18 @@ nav [class^="icon-"]:before,
 nav [class*=" icon-"]:before {
   display: block;
   width: 90%;
+}
+#content {
+  width: 400%;
+}
+#content > div {
+  display: inline-block;
+  max-width: 480px;
+  vertical-align: top;
+  width: 100%;
+}
+#content > div + div {
+  display: none;
 }
 h2 {
   padding: 0 3%;

@@ -41,6 +41,7 @@
 
 html{
 	background: url('../img/white.png');
+	overflow-x: hidden;
 }
 ul{
 	padding:0;
@@ -59,7 +60,7 @@ body{
 	width:100%;
 
 }
-	#series, #saisons, #favoris{
+	#series, #saisons, #favoris, #result{
 		background: #FFF;
 		-border: 1px #999 solid;
 		border-radius: 5px;
@@ -188,6 +189,21 @@ nav{
 		width: 90%;
 	}
 }
+
+#content{
+	width:400%;
+
+	&>div{
+		display:inline-block;
+		max-width:480px;
+		vertical-align: top;
+		width:100%;
+	}
+	&>div+div{
+		display:none;
+	}
+}
+
 
 h2{
 	padding:0 3%;

@@ -8,7 +8,10 @@
 		$zone,
 		skey='2c9616d370cc',
 		sKeyWord,
+		$page,
 		sPage,
+		$exPage = $('#accueil'),
+		sExPage = 'Accueil',
 		dataLocal,
 		memory;
 
@@ -33,7 +36,55 @@
 	}; //getURL_param
 
 	var checkPage = function(e){
-		sPage = $('body').attr('id');
+		e.preventDefault();
+		sPage = e.currentTarget.innerText;
+		if(sExPage != sPage){
+			if(sPage == 'Accueil'){
+				$page = $('#accueil');
+				$page.css({'display':'inline-block'});
+				$('#content').css({marginLeft:'-100%'});
+					$('#content').animate({marginLeft:0},400,function(){
+						$exPage.hide();
+						$exPage = $page;
+						sExPage = sPage;
+					});
+				
+			}
+			else{
+				switch(sPage){
+					case 'Favoris':
+						$page = $('#profil').remove();
+						$('#content').append($page);
+						favoris();
+					break;
+					case 'Liste':
+						$page = $('#liste').remove();
+						$('#content').append($page);
+						liste();
+					break;
+					case 'Agenda':
+						$page = $('#planning').remove();
+						$('#content').append($page);
+						agenda();
+					break;
+					case '':
+						$page = $('#profil').remove();
+						$('#content').append($page);
+						favoris();
+					break;
+					default:
+					break;
+				}
+				$page.css({'display':'inline-block'});
+				$('#content').animate({marginLeft:'-100%'},400,function(){
+					$exPage.hide();
+					sExPage = sPage;
+					$exPage = $page;
+					$('#content').css({marginLeft:0});
+				});
+			}
+		}
+		/*sPage = $('body').attr('id');
 		switch(sPage){
 			case 'accueil':
 			break;
@@ -54,7 +105,7 @@
 			break;
 			default:
 			break;
-		}
+		}*/
 	}; //checkPage
 
 	var saveLocal = function(obj){
@@ -129,10 +180,9 @@
 			jsonpCallback:'mySeries',
 			success: function(data){
 				var jInfos = data.root.shows,
-					$zone = $('#series'),
+					$zone = $('#result'),
 					i = 0;
-					console.log(jInfos);
-					console.log(dataLocal);
+					$zone.find('li').remove().on('click','a',checkPage);
 				listerSeries(i,jInfos,$zone);
 				$('.icon-right').on('click',function(){
 					$zone.fadeOut('fast',function(){
@@ -235,6 +285,7 @@
 	var agenda = function(){
 		var series = JSON.parse(localStorage.getItem('series')),
 			$zone;
+		$('#planning').find('a').remove();
 		$.ajax({
 			url:'http://api.betaseries.com/planning/general.json?key='+skey,
 			dataType: 'jsonp',
@@ -256,7 +307,6 @@
 									else{
 										$zone = $('#soon');
 									}
-									console.log(infos[i]);
 									$zone.append('<p><a href="saison.php?title='+infos[i].url+'&saison='+infos[i].season+'">'+infos[i].show+' - '+infos[i].title+'</a></p>');
 							}
 						}
@@ -272,6 +322,7 @@
 			$zone = $('#favoris'),
 			$serie,
 			sUrl;
+			$zone.find('*').remove();
 		for(var i in infos){
 			$zone.append('<li data-url="'+infos[i].url+'"><a href="fiche.php?title='+infos[i].url+'">'+infos[i].title+'</a><a href="#" class="delete">X</a></li>');
 		}
@@ -331,7 +382,8 @@
 			console.log('hh');
 			$("#searchBar").slideDown().on('submit',recherche);
 		});
-		checkPage();
+		$('nav').on('click','a',checkPage);
+		//checkPage();
 	} );
 
 }( jQuery ) );
